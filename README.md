@@ -20,6 +20,9 @@
 6. Swagger
 -> Added swagger. It provides a user interface to access our RESTful web services via the web browser. 
 
+7. Redis Cache
+-> Added redis cache to store data in cache memory for fast and efficient api calls.
+
 *************IN-PROCESS/MISSING*************
 
 1. Basic search for FetchAll Api(using Elastic Search)
