@@ -49,27 +49,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 		log.info("::::::--->Inside createNewEmployee Service<---::::::");
 		Cache cache = cacheManger.getCache("Employee");
 	
-		for (int i = 0; i < 1000; i++) {
-			Employee empl = new Employee();
-			empl.setName("Piyush Jayswal-" + String.valueOf(i));
-			if (i % 2 == 0) {
-				empl.setGender("M");
-			} else {
-				empl.setGender("F");
-			}
-			empl.setTeam(employee.getTeam() + String.valueOf(i));
-			empl.setSalary(employee.getSalary());
-			empl.setAddress(employee.getAddress() + String.valueOf(i));
-			if (i % 5 == 0) {
-				empl.setDeleted(true);
-			} else {
-				empl.setDeleted(false);
-			}
-			employeeRepository.save(empl);
-			if (cache != null && empl.isDeleted() == false) {
-				cache.put(empl.getId() + "_" + empl.isDeleted(), empl);
-			}
-		}
+//		for (int i = 0; i < 1000; i++) {
+//			Employee empl = new Employee();
+//			empl.setName("Piyush Jayswal-" + String.valueOf(i));
+//			if (i % 2 == 0) {
+//				empl.setGender("M");
+//			} else {
+//				empl.setGender("F");
+//			}
+//			empl.setTeam(employee.getTeam() + String.valueOf(i));
+//			empl.setSalary(employee.getSalary());
+//			empl.setAddress(employee.getAddress() + String.valueOf(i));
+//			if (i % 5 == 0) {
+//				empl.setDeleted(true);
+//			} else {
+//				empl.setDeleted(false);
+//			}
+//			employeeRepository.save(empl);
+//			if (cache != null && empl.isDeleted() == false) {
+//				cache.put(empl.getId() + "_" + empl.isDeleted(), empl);
+//			}
+//		}
 
 		Employee empl1 = new Employee();
 		empl1.setName(employee.getName());
