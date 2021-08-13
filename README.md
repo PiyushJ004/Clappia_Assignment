@@ -17,6 +17,9 @@
 5. DeleteById Api
 -> Deleting a particular employee using its unique id.
 
+6. Swagger
+-> Added swagger. It provides a user interface to access our RESTful web services via the web browser. 
+
 *************IN-PROCESS/MISSING*************
 
 1. Basic search for FetchAll Api(using Elastic Search)
