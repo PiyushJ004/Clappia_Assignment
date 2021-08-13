@@ -46,11 +46,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository employeeRepository;
 
 	public Employee createNewEmployee(EmployeeCreateRequest employee) {
+		log.info("::::::--->Inside createNewEmployee Service<---::::::");
 		Cache cache = cacheManger.getCache("Employee");
 	
 		for (int i = 0; i < 1000; i++) {
 			Employee empl = new Employee();
-			empl.setName("Piyush-" + String.valueOf(i));
+			empl.setName("Piyush Jayswal-" + String.valueOf(i));
 			if (i % 2 == 0) {
 				empl.setGender("M");
 			} else {
@@ -84,14 +85,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	public List<Employee> getAllEmployees(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+		log.info("::::::--->Inside getAllEmployees Service<---::::::");
 		return employeeRepository.findByIsDeleted(false, pageable);
 	}
 
 	public Employee getExistingEmployee(String id) {
+		log.info("::::::--->Inside getExistingEmployee Service<---::::::");
 		return getEmployeeDetails(id);
 	}
 
 	public void deleteExistingEmployee(String id) {
+		log.info("::::::--->Inside deleteExistingEmployee Service<---::::::");
 		Employee empl = getEmployeeDetails(id);
 		empl.setDeleted(true);
 		employeeRepository.save(empl);
@@ -125,7 +129,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (cache != null) {
 			cache.put(empl.getId() + "_" + empl.isDeleted(), resp);
 		}
-
+		log.info("::::::--->Employee details updated successfully<---::::::");
 		return resp;
 	}
 

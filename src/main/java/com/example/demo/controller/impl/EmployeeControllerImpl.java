@@ -34,33 +34,39 @@ public class EmployeeControllerImpl implements EmployeeController {
 
 	@Override
 	public ResponseEntity<ModelMap> createEmployeeUsingPOST(@RequestBody EmployeeCreateRequest employee) {
+		log.info("::::::--->Inside createEmployeeUsingPOST Controller<---::::::");
 		Employee empl = employeeService.createNewEmployee(employee);
+		log.info("::::::--->Employee details saved successfully<---::::::");
 		return ResponseEntity.status(HttpStatus.CREATED).body(new ModelMap().addAttribute("id", empl.getId()));
 
 	}
 
 	@Override
 	public ResponseEntity<List<Employee>> fetchAllEmployeeUsingGET(Pageable pageable) {
+		log.info("::::::--->Inside fetchAllEmployeeUsingGET Controller<---::::::");
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees(pageable));
 
 	}
 
 	@Override
 	public ResponseEntity<Employee> fetchEmployeeByIdUsingGET(@PathVariable String id) {
+		log.info("::::::--->Inside fetchEmployeeByIdUsingGET Controller<---::::::");
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getExistingEmployee(id));
 
 	}
 
 	@Override
 	public ResponseEntity<Void> deleteEmployeeByIdUsingDELETE(@PathVariable String id) {
+		log.info("::::::--->Inside deleteEmployeeByIdUsingDELETE Controller<---::::::");
 		employeeService.deleteExistingEmployee(id);
+		log.info("::::::--->Employee details deleted successfully<---::::::");
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	@Override
 	public ResponseEntity<Employee> updateEmployeeByIdUsingPUT(@Valid EmployeeUpdateRequest request, String id)
 			throws JsonProcessingException, ParseException {
-
+		log.info("::::::--->Inside updateEmployeeByIdUsingPUT Controller<---::::::");
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(request, id));
 	}
 
