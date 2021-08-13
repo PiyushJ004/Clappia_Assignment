@@ -46,38 +46,41 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository employeeRepository;
 
 	public Employee createNewEmployee(EmployeeCreateRequest employee) {
-//		Employee empl = new Employee();
-//		for(int i = 0; i < 1000000; i++) {
-//			empl.setName("Piyush-" + String.valueOf(i));
-//			if(i%2 == 0){
-//				empl.setGender("M");
-//			}else{
-//				empl.setGender("F");
-//			}
-//			empl.setTeam(employee.getTeam() + String.valueOf(i));
-//			empl.setSalary(employee.getSalary());
-//			if(i%2 == 0){
-//				empl.setDeleted(true);
-//			}else{
-//				empl.setDeleted(false);
-//			}
-//			employeeRepository.save(empl);
-//		}
-
-		Employee empl = new Employee();
-
-		empl.setGender(employee.getGender());
-		empl.setName(employee.getName());
-		empl.setSalary(employee.getSalary());
-		empl.setTeam(employee.getTeam());
-
-		employeeRepository.save(empl);
-
 		Cache cache = cacheManger.getCache("Employee");
-		if (cache != null) {
-			cache.put(empl.getId() + "_" + empl.isDeleted(), empl);
+	
+		for (int i = 0; i < 1000; i++) {
+			Employee empl = new Employee();
+			empl.setName("Piyush-" + String.valueOf(i));
+			if (i % 2 == 0) {
+				empl.setGender("M");
+			} else {
+				empl.setGender("F");
+			}
+			empl.setTeam(employee.getTeam() + String.valueOf(i));
+			empl.setSalary(employee.getSalary());
+			empl.setAddress(employee.getAddress() + String.valueOf(i));
+			if (i % 5 == 0) {
+				empl.setDeleted(true);
+			} else {
+				empl.setDeleted(false);
+			}
+			employeeRepository.save(empl);
+			if (cache != null && empl.isDeleted() == false) {
+				cache.put(empl.getId() + "_" + empl.isDeleted(), empl);
+			}
 		}
-		return empl;
+
+		Employee empl1 = new Employee();
+		empl1.setName(employee.getName());
+		empl1.setSalary(employee.getSalary());
+		empl1.setGender(employee.getGender());
+		empl1.setTeam(employee.getTeam());
+		empl1.setAddress(employee.getAddress());
+		employeeRepository.save(empl1);
+		if (cache != null && empl1.isDeleted() == false) {
+			cache.put(empl1.getId() + "_" + empl1.isDeleted(), empl1);
+		}
+		return empl1;
 	}
 
 	public List<Employee> getAllEmployees(@PageableDefault(page = 0, size = 10) Pageable pageable) {
@@ -95,7 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		Cache cache = cacheManger.getCache("Employee");
 		if (cache != null) {
-			cache.evictIfPresent(id + "_" + true);
+			cache.evictIfPresent(id + "_" + false);
 		}
 		return;
 	}

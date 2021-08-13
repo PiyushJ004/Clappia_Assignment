@@ -1,6 +1,5 @@
 package com.example.demo.controller.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -27,37 +26,39 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/")
+@RequestMapping("/v1.0/")
 public class EmployeeControllerImpl implements EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
 
-	public ResponseEntity<ModelMap> createEmployee(@RequestBody EmployeeCreateRequest employee) {
-		log.info(":::::::::::::1:::::::::::::::");
+	@Override
+	public ResponseEntity<ModelMap> createEmployeeUsingPOST(@RequestBody EmployeeCreateRequest employee) {
 		Employee empl = employeeService.createNewEmployee(employee);
-		log.info(":::::::::::::2:::::::::::::::");
 		return ResponseEntity.status(HttpStatus.CREATED).body(new ModelMap().addAttribute("id", empl.getId()));
 
 	}
 
-	public ResponseEntity<List<Employee>> fetchAllEmployee(Pageable pageable) {
+	@Override
+	public ResponseEntity<List<Employee>> fetchAllEmployeeUsingGET(Pageable pageable) {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees(pageable));
 
 	}
 
-	public ResponseEntity<Employee> fetchEmployee(@PathVariable String id) {
+	@Override
+	public ResponseEntity<Employee> fetchEmployeeByIdUsingGET(@PathVariable String id) {
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.getExistingEmployee(id));
 
 	}
 
-	public ResponseEntity<Void> deleteEmployee(@PathVariable String id) {
+	@Override
+	public ResponseEntity<Void> deleteEmployeeByIdUsingDELETE(@PathVariable String id) {
 		employeeService.deleteExistingEmployee(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	@Override
-	public ResponseEntity<Employee> updateEmployee(@Valid EmployeeUpdateRequest request, String id)
+	public ResponseEntity<Employee> updateEmployeeByIdUsingPUT(@Valid EmployeeUpdateRequest request, String id)
 			throws JsonProcessingException, ParseException {
 
 		return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(request, id));

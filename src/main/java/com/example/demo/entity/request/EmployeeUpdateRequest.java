@@ -23,4 +23,5 @@ public class EmployeeUpdateRequest implements Serializable {
 	private Double salary;
 	private String gender;
 	private String team;
+	private String address;
 }

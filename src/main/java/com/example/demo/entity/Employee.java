@@ -22,7 +22,7 @@ import lombok.Setter;
 @Document(collection = "Employee")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Employee extends EmployeeAddress implements Serializable {
+public class Employee implements Serializable {
 
 	/**
 	 * 
@@ -43,6 +43,9 @@ public class Employee extends EmployeeAddress implements Serializable {
 	@NotBlank
 	@JsonProperty("team")
 	private String team;
+	@NotBlank
+	@JsonProperty("address")
+	private String address;
 	@NotBlank
 	@JsonProperty("isDeleted")
 	private boolean isDeleted;
